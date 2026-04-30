@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Pulsing dots animation ─────────────────────────────────── */
+@keyframes cc-pulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1;   }
+}
+
+.cc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: cc-pulse 1.2s ease-in-out infinite;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.cc-app    { display: flex; height: 100vh; overflow: hidden; background: var(--bg); }
+.cc-main   { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.cc-scroll { flex: 1; overflow-y: auto; }
+.cc-thread { max-width: 720px; margin: 0 auto; padding: 24px 16px 8px; }
+
+/* ── Topbar ─────────────────────────────────────────────────── */
+.cc-topbar       { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.cc-topbar-title { flex: 1; font-size: 14px; font-weight: 500; }
+.cc-menu-btn, .cc-new-chat-mobile {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-dim); padding: 4px; border-radius: 6px;
+}
+.cc-menu-btn:hover, .cc-new-chat-mobile:hover { color: var(--text); background: var(--elevated); }
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.cc-sidebar {
+  width: 240px; background: var(--sidebar); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; transition: transform 0.2s;
+}
+@media (max-width: 640px) {
+  .cc-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 40; transform: translateX(-100%); }
+  .cc-sidebar-open { transform: translateX(0); }
+}
+.cc-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 30; }
+.cc-side-top  { padding: 16px; border-bottom: 1px solid var(--border-soft); }
+.cc-side-mid  { flex: 1; padding: 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+.cc-side-bottom { padding: 12px 16px; border-top: 1px solid var(--border-soft); }
+.cc-brand     { display: flex; align-items: center; gap: 10px; }
+.cc-brand-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--elevated); display: flex; align-items: center; justify-content: center; }
+.cc-brand-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.cc-brand-sub  { font-size: 10px; color: var(--muted); }
+.cc-new-chat  { display: flex; align-items: center; gap: 6px; width: 100%; padding: 7px 10px; background: var(--elevated); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; color: var(--text); font-size: 12px; }
+.cc-new-chat:hover { background: var(--border); }
+.cc-side-section { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding: 4px 2px 0; }
+.cc-side-current { font-size: 12px; padding: 6px 8px; border-radius: 6px; background: var(--elevated); border: 1px solid var(--border-soft); }
+.cc-side-foot { font-size: 10px; color: var(--muted); }
+.cc-mono { font-family: ui-monospace, monospace; }
+
+/* ── Messages ────────────────────────────────────────────────── */
+.cc-messages { display: flex; flex-direction: column; gap: 12px; }
+.cc-row      { display: flex; }
+.cc-row-user { justify-content: flex-end; }
+.cc-row-ai   { justify-content: flex-start; }
+.cc-bubble-wrap { max-width: min(85%, 560px); display: flex; flex-direction: column; gap: 4px; }
+.cc-bubble   { padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.6; word-break: break-word; }
+.cc-msg-text { white-space: pre-wrap; }
+.cc-meta     { display: flex; align-items: center; padding: 0 4px; }
+.cc-copy     { display: flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; font-size: 11px; padding: 2px 6px; border-radius: 4px; transition: opacity .15s; opacity: .6; }
+.cc-copy:hover { opacity: 1; }
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.cc-empty        { display: flex; flex-direction: column; align-items: center; padding: 48px 16px 24px; gap: 12px; }
+.cc-empty-mark   { width: 48px; height: 48px; border-radius: 14px; border: 1px solid; display: flex; align-items: center; justify-content: center; }
+.cc-empty-title  { font-size: 20px; font-weight: 600; margin: 0; }
+.cc-empty-sub    { font-size: 14px; margin: 0; text-align: center; max-width: 320px; }
+.cc-suggest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 480px; margin-top: 8px; }
+.cc-suggest      { text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid; cursor: pointer; font-size: 13px; line-height: 1.4; }
+.cc-suggest:hover { filter: brightness(1.15); }
+
+/* ── Composer ────────────────────────────────────────────────── */
+.cc-composer-wrap { padding: 12px 16px 16px; }
+.cc-composer      { max-width: 720px; margin: 0 auto; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.cc-input         { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-size: 14px; line-height: 1.6; padding: 12px 14px 4px; resize: none; }
+.cc-input::placeholder { color: var(--muted); }
+.cc-composer-foot { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px 8px 14px; }
+.cc-hint          { font-size: 11px; color: var(--muted); }
+.cc-send          { width: 32px; height: 32px; border-radius: 8px; background: var(--accent); border: none; cursor: pointer; color: #fff; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+.cc-send:hover:not(:disabled) { background: var(--accent-hover); }
+.cc-send:disabled { opacity: .4; cursor: default; }
